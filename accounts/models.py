@@ -1,4 +1,5 @@
 import uuid
+from datetime import datetime,timedelta
 from django.conf import settings
 from django.contrib.auth.models import (
     BaseUserManager, AbstractBaseUser
@@ -9,8 +10,27 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 
+class Project(models.Model):
+    
+    def now_plus_30():
+        return datetime.now()
 
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    zip_code = models.CharField(max_length=8)
+    cost = models.DecimalField(max_digits=10, decimal_places=2)
+    done = models.BooleanField(default=False)
+    deadline = models.DateTimeField(default=now_plus_30)
+    username = models.ForeignKey(
+      settings.AUTH_USER_MODEL, 
+      on_delete=models.CASCADE
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+    
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, name, password=None, **extra_fields):
         """

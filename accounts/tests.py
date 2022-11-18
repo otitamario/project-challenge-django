@@ -1,5 +1,27 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from .models import Project
+
+class ProjectTests(TestCase):
+    #Test the Project Model
+    def setUp(self):
+        self.User=  get_user_model()
+        self.user = self.User.objects.create_user(name='Maria da Silva',username='myusername', password='foo')
+        
+        self.project = Project(
+            title = 'First Project',
+            zip_code = '88010400',
+            cost = '9500',
+            done = False,
+            deadline = '2022-12-31T00:00:00.000Z',
+            username =  self.user
+        )
+    
+    def test_create_project(self):
+        self.assertIsInstance(self.project, Project)
+
+    def test_str_representation(self):
+        self.assertEquals(str(self.project), "First Project")
 
 
 class UsersManagersTests(TestCase):
