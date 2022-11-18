@@ -1,6 +1,6 @@
 from django.contrib.auth import get_user_model
-from django.test import TestCase
-from .models import Project
+from django.test import TestCase, SimpleTestCase
+from accounts.models import Project
 
 class ProjectTests(TestCase):
     #Test the Project Model
@@ -22,7 +22,6 @@ class ProjectTests(TestCase):
 
     def test_str_representation(self):
         self.assertEquals(str(self.project), "First Project")
-
 
 class UsersManagersTests(TestCase):
 
