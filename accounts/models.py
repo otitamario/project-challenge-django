@@ -23,7 +23,8 @@ class Project(models.Model):
     deadline = models.DateTimeField(default=now_plus_30)
     username = models.ForeignKey(
       settings.AUTH_USER_MODEL, 
-      on_delete=models.CASCADE
+      on_delete=models.CASCADE,
+      to_field='username'
     )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
